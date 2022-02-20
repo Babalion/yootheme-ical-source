@@ -5,8 +5,8 @@ use YOOtheme\Path;
 
 include_once __DIR__ . '/src/SourceListener.php';
 include_once __DIR__ . '/src/MyTypeProvider.php';
-include_once __DIR__ . '/src/Type/MyType.php';
-include_once __DIR__ . '/src/Type/MyQueryType.php';
+include_once __DIR__ . '/src/Type/ICalType.php';
+include_once __DIR__ . '/src/Type/ICalQueryType.php';
 
 return [
 

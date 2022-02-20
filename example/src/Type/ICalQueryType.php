@@ -1,6 +1,6 @@
 <?php
 
-class MyQueryType
+class ICalQueryType
 {
     public static function config()
     {
@@ -8,13 +8,13 @@ class MyQueryType
 
             'fields' => [
 
-                'custom_my_type' => [
+                'calendar_icaltype' => [
 
-                    'type' => 'MyType',
+                    'type' => 'ICalType',
 
                     'args' => [
 
-                        'id' => [
+                        'iCalUrl' => [
                             'type' => 'String'
                         ],
 
@@ -22,13 +22,13 @@ class MyQueryType
 
                     'metadata' => [
 
-                        'label' => 'Custom MyType',
-                        'group' => 'Custom',
+                        'label' => 'iCal Calendar',
+                        'group' => 'Calendar',
 
                         'fields' => [
-                            'id' => [
-                                'label' => 'Type ID',
-                                'description' => 'Input a type ID.'
+                            'iCalUrl' => [
+                                'label' => 'iCal URL',
+                                'description' => 'input an URL to an iCal file.'
                             ],
                         ],
 
@@ -47,6 +47,6 @@ class MyQueryType
 
     public static function resolve($item, $args, $context, $info)
     {
-        return MyTypeProvider::get($args['id']);
+        return MyTypeProvider::get($args['iCalUrl']);
     }
 }

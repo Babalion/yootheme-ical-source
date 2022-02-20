@@ -1,36 +1,42 @@
 <?php
 
-class MyType
+class ICalType
 {
     public static function config()
     {
         return [
 
             'fields' => [
-
-                'my_field' => [
+                'title' => [
                     'type' => 'String',
                     'metadata' => [
-                        'label' => 'My Field'
+                        'label' => 'Title'
                     ],
                     'extensions' => [
                         'call' => __CLASS__ . '::resolve'
                     ]
-                ]
+                ],
+                'description' => [
+                    'type' => 'String',
+                    'metadata' => [
+                        'label' => 'Description'
+                    ],
+                ],
 
             ],
 
             'metadata' => [
                 'type' => true,
-                'label' => 'My Type'
+                'label' => 'iCal Source'
             ]
 
         ];
     }
 
+    // demonstration for a custom resolve function
     public static function resolve($obj, $args, $context, $info)
     {
         // Query the data …
-        return $obj->my_field;
+        return $obj->title;
     }
 }

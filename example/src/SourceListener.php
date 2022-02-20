@@ -9,7 +9,7 @@ class SourceListener
      */
     public static function initSource($source)
     {
-        $source->objectType('MyType', MyType::config());
-        $source->queryType(MyQueryType::config());
+        $source->objectType('ICalType', ICalType::config());
+        $source->queryType(ICalQueryType::config());
     }
 }

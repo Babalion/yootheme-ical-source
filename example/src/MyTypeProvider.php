@@ -2,9 +2,13 @@
 
 class MyTypeProvider
 {
-    public static function get($id)
+    public static function get($iCalUrl)
     {
         // Query objects
-        return (object) ['my_field' => "The data for id: {$id}"];
+        return (object) [
+            'title' => "The title for id: {$iCalUrl}",
+            'description' => "The description for id: {$iCalUrl}",
+            'date' => "The date for id: {$iCalUrl}",
+        ];
     }
 }
