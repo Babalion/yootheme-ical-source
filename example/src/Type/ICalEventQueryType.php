@@ -1,6 +1,8 @@
 <?php
 
-class ICalQueryType
+use ICalEvent;
+
+class ICalEventQueryType
 {
     public static function config()
     {
@@ -8,30 +10,26 @@ class ICalQueryType
 
             'fields' => [
 
-                'calendar_icaltype' => [
+                'i_cal_event' => [
 
-                    'type' => 'ICalType',
+                    'type' => 'ICalEvent',
 
                     'args' => [
-
                         'iCalUrl' => [
-                            'type' => 'String'
+                            'type' => 'String',
                         ],
-
                     ],
 
                     'metadata' => [
 
-                        'label' => 'iCal Calendar',
+                        'label' => 'iCal event',
                         'group' => 'Calendar',
-
                         'fields' => [
                             'iCalUrl' => [
                                 'label' => 'iCal URL',
                                 'description' => 'input an URL to an iCal file.'
                             ],
                         ],
-
                     ],
 
                     'extensions' => [
@@ -45,8 +43,11 @@ class ICalQueryType
         ];
     }
 
-    public static function resolve($item, $args, $context, $info)
+    public static function resolve(array $args)
     {
-        return MyTypeProvider::get($args['iCalUrl']);
+        //print($args['iCalUrl']);
+        $events = ICalEvent::query($args);
+        //$events=array();
+        return array_shift($events);
     }
 }
