@@ -1,0 +1,28 @@
+{
+    "sections": {
+        "my-section": {
+            "title": "My Section",
+            "width": 400,
+            "priority": 100,
+            "fields": {
+                "option_a": {
+                    "label": "Option A",
+                    "description": "A description text."
+                }
+            }
+        },
+        "styler": {
+            "components": {
+                "my-component": {
+                    "name": "My Component",
+                    "groups": {
+                        "title": "@my-component-title-*",
+                        "card": "@my-component-card-*"
+                    },
+                    "hover": "[class*='my-component-']",
+                    "inspect": "[class*='my-component'], [class*='my-component'] > *"
+                }
+            }
+        }
+    }
+}
