@@ -2,9 +2,14 @@
 
 use YOOtheme\Builder\Source;
 
-include_once __DIR__ . '/Type/ICalEventType.php';
-include_once __DIR__ . '/Type/ICalEventQueryType.php';
-include_once __DIR__ . '/Type/ICalEventsQueryType.php';
+/**
+ * In this file we provide a class with which YooTheme can later on instantiate our Type and Query Type
+ *
+ * The queryType 'MyQueryType' describes the structure we see later on in the Dynamic Source Settings
+ *
+ * The objectType 'EventType' describes the contents which our Source provides
+ * and which we can select later on in the element builder
+ */
 
 class SourceListener
 {
@@ -13,8 +18,7 @@ class SourceListener
      */
     public static function initSource($source)
     {
-        $source->queryType(ICalEventQueryType::config());
-        //$source->queryType(ICalEventsQueryType::config());
-        $source->objectType('ICalEvent', ICalEvent::config());
+        $source->objectType('EventType', EventType::config());
+        $source->queryType(MyQueryType::config());
     }
 }
