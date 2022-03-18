@@ -7,7 +7,7 @@ use ICal\ICal;
 
 class ICalEvent
 {
-    public static function query(array $iCalUrl)
+    public static function get($iCalUrl)
     {
         // Query objects
 
@@ -21,7 +21,9 @@ class ICalEvent
                 'filterDaysBefore' => null,  // Default value
                 'skipRecurrence' => false, // Default value
             ));
-            print($iCalUrl);
+            foreach ($iCalUrl as $el){
+                print($el);
+            }
             print('\n');
             // $ical->initFile('ICal.ics');
             $ical->initUrl($iCalUrl, $username = null, $password = null, $userAgent = null);

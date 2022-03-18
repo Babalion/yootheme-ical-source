@@ -46,7 +46,7 @@ class ICalEventQueryType
     public static function resolve(array $args)
     {
         //print($args['iCalUrl']);
-        $events = ICalEvent::query($args);
+        $events = ICalEvent::get($args);
         //$events=array();
         return array_shift($events);
     }

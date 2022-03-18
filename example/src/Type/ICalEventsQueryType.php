@@ -44,6 +44,6 @@ class ICalEventsQueryType
     // demonstration for a custom resolve function
     public static function resolve(array $args)
     {
-        return ICalEvent::query($args['iCalUrl']);
+        return ICalEvent::get($args['iCalUrl']);
     }
 }
