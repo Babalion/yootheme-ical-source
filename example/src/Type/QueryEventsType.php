@@ -17,22 +17,24 @@ function debug_to_console($data)
 /**
  * All settings we can tweak in our source
  */
-class MyQueryType
+class QueryEventsType
 {
     public static function config()
     {
         return [
 
             'fields' => [
-                'event_type' => [
-                    'type' => 'EventType',
+                'events_type' => [
+                    'type' => [
+                        'listOf' => 'EventType',
+                    ],
                     'args' => [
                         'iCalUrl' => [
                             'type' => 'String'
                         ],
                     ],
                     'metadata' => [
-                        'label' => 'iCal Event',
+                        'label' => 'iCal Events',
                         'group' => 'Events',
                         'fields' => [
                             'iCalUrl' => [
@@ -42,7 +44,7 @@ class MyQueryType
                         ],
                     ],
                     'extensions' => [
-                        'call' => __CLASS__ . '::getFirstEvent',
+                        'call' => __CLASS__ . '::getEvents',
                     ],
                 ],
             ]
@@ -50,22 +52,35 @@ class MyQueryType
     }
 
 
-    public static function getFirstEvent($item, $args, $context, $info)
+    public static function getEvents($item, $args, $context, $info)
     {
         $iCalUrl = $args['iCalUrl'];
-        $firstEvent = self::crawler($iCalUrl)->events()[0];
-        return (object)[
-            'title' => "$firstEvent->summary",
-            'description' => "$firstEvent->description",
-            'startDate' => "$firstEvent->dtstart_tz",
-            'endDate' => "$firstEvent->dtstart_tz"
-        ];
+        if (empty($iCalUrl)) {
+            return [QueryEventType::dummyEvent()];
+        }
+
+        // TODO add check if URL is valid
+
+        $ical = self::crawler($iCalUrl);
+
+        $ListOfEventsTypeFields = [];
+        foreach ($ical->events() as $event) {
+            debug_to_console(count($event));
+            $ListOfEventsTypeFields[] = (object)[
+                'title' => $event->summary,
+                'description' => $event->description,
+                'startDate' => $event->dtstart_tz,
+                'endDate' => $event->dtend_tz,
+                //'eventCount' => $event->eventCount,
+            ];
+        }
+
+        return $ListOfEventsTypeFields;
     }
 
     public static function crawler($iCalUrl)
     {
         // Query objects
-
         try {
             $ical = new ICal(false, array(
                 'defaultSpan' => 2,     // Default value
@@ -81,20 +96,5 @@ class MyQueryType
             die($e);
         }
         return $ical;
-
-//        $events = array();
-//
-//        foreach ($ical->events() as $event) {
-//            $events[] = [
-//                'title' => $event->summary,
-//                'description' => $event->description,
-//                'dtStart' => $event->dtstart_tz,
-//                'dtEnd' => $event->dtend_tz,
-//                //'eventCount' => $event->eventCount,
-//            ];
-//        }
-//
-//        //print $events[0]->printData();
-//        return $events;
     }
 }
