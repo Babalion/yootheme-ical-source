@@ -1,2 +1,4 @@
 /.idea
 cache/schema-1.gql
+/builder-joomla-source
+/builder-source-filesystem
